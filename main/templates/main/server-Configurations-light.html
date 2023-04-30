@@ -1,0 +1,69 @@
+{% extends "index.html" %}
+{% load static %}
+{% load i18n %}
+{% block title %}
+Server Configurations
+{% endblock title %}
+{% block content %}
+    <div class="content">
+                <div class="intro-y flex items-center mt-8">
+                    <h2 class="text-lg font-medium mr-auto">
+                        Servers Configurations
+                    </h2>
+                </div>
+                <div class="grid grid-cols-12 gap-6 mt-5">
+                    <div class="intro-y col-span-12 lg:col-span-6">
+                        <!-- BEGIN: Input Groups -->
+                        <div class="intro-y box mt-5">
+                            <div class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+                                <h2 class="font-medium text-base mr-auto">
+                                    Notification setting
+                                </h2>
+                            </div>
+                            <div id="input-groups" class="p-5">
+                                <div class="preview">
+                                    <div class="input-group">
+                                       <div id="input-group-email" class="input-group-text"> Telegram  </div>
+                                        <input type="text" class="form-control" placeholder="BOT Token" aria-label="Email" aria-describedby="input-group-email">
+                                        <div class="input-group-text"><div class="form-check form-switch w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0"> <input id="show-example-1" data-target="#basic-dropdown" class="show-code form-check-input mr-0 ml-3" type="checkbox"checked></div></div>
+                                  </div>
+                                    <div class="input-group mt-2">
+                                        <div id="input-group-email" class="input-group-text">Discord</div>
+                                        <input type="text" class="form-control" placeholder="https://discord.com/api/webhooks/000000000000/XXXXXXXXXXXXXXXXXXX" aria-label="Email" aria-describedby="input-group-email">
+                                        <div class="input-group-text"><div class="form-check form-switch w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0"> <input id="show-example-1" data-target="#basic-dropdown" class="show-code form-check-input mr-0 ml-3" type="checkbox"checked></div></div>
+                                 </div>
+                                    <div class="input-group mt-2">
+                                        <div id="input-group-email" class="input-group-text"> Slack  </div>
+                                        <input type="text" class="form-control" placeholder="https://hooks.slack.com/services/T000000000/B000000000/XXXXXXXXXXX" aria-label="Email" aria-describedby="input-group-email">
+                                        <div class="input-group-text"><div class="form-check form-switch w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0"> <input id="show-example-1" data-target="#basic-dropdown" class="show-code form-check-input mr-0 ml-3" type="checkbox"checked></div></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <!-- END: Input Groups -->
+
+                        <div class="intro-y box mt-5">
+                            <div class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+                                <h2 class="font-medium text-base mr-auto">
+                                    Web Server setting
+                                </h2>
+                            </div>
+                            <div id="input-groups" class="p-3">
+                                <div class="preview">
+                                    <div class="input-group">
+                                        <div id="input-group-email" class="input-group-text"> Web App  </div>
+                                        <input type="text" class="form-control" placeholder="141.54.23.54:443" aria-label="Email" aria-describedby="input-group-email">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+    </div>
+
+
+{% endblock content %}

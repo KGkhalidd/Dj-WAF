@@ -1,0 +1,963 @@
+{% extends "index.html" %}
+{% load static %}
+{% load i18n %}
+{% block title %}
+Log Analysis
+{% endblock title %}
+{% block content %}
+<div class="content">
+    <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+        <table class="table table-report -mt-2">
+            <thead>
+                <tr>
+                    <th class="whitespace-nowrap">Request id</th>
+                    <th class="whitespace-nowrap">Date</th>
+                    <th class="text-center whitespace-nowrap">Path</th>
+                    <th class="text-center whitespace-nowrap">Endpoint</th>
+                    <th class="text-center whitespace-nowrap">Client IP</th>
+                    <th class="text-center whitespace-nowrap">Overview</th>
+                    <th class="text-center whitespace-nowrap">#Parameters</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for blockedclient in blockedclients %}
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="" class="font-medium whitespace-nowrap">{{blockedclient.id}}</a>
+                        </div>
+                    </td>
+                    <td>
+                       {{blockedclient.date}}
+                    </td>
+                    <td class="text-center">{{blockedclient.path}}</td>
+                    <td class="text-center">{{blockedclient.endpoint}}</td>
+
+                    <td class="text-center">{{blockedclient.client_ip}}</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">{{blockedclient.overview}}</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548896</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/Account</td>
+                    <td class="text-center">/Account</td>
+
+                    <td class="text-center">147.56.55.69</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">None</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548897</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/Changename</td>
+                    <td class="text-center">name=%22%3E%3Cscript%3Ealert(%27Naughty!%27);</td>
+
+                    <td class="text-center">139.58.46.85</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">xss</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548898</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">login</td>
+                    <td class="text-center">/username=' or 1=1--&password=' or 1=1--</td>
+
+                    <td class="text-center">246.54.78.98</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">SQL Injection</td>
+                    <td class="text-center">2</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548899</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/</td>
+                    <td class="text-center">?rest_route=/wp/v2/users</td>
+
+                    <td class="text-center">145.54.78.98</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">unknown</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+
+
+
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="" class="font-medium whitespace-nowrap">548895</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/matrics</td>
+                    <td class="text-center">url=/etc/passwd</td>
+
+                    <td class="text-center">201.159.99.58</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">lfi</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548896</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/Account</td>
+                    <td class="text-center">/Account</td>
+
+                    <td class="text-center">147.56.55.69</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">None</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548897</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/Changename</td>
+                    <td class="text-center">name=script>alert(1)</td>
+
+                    <td class="text-center">139.58.46.85</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">xss</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548898</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">login</td>
+                    <td class="text-center">/username=' or 1=1--</td>
+
+                    <td class="text-center">246.54.78.98</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">SQL Injection</td>
+                    <td class="text-center">2</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548899</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/</td>
+                    <td class="text-center">/wp-comments-post.php</td>
+
+                    <td class="text-center">145.54.78.98</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">Open Redirect</td>
+                    <td class="text-center">1</td>
+
+                </tr>
+
+
+
+                                        <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="" class="font-medium whitespace-nowrap">548895</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/index.php</td>
+                    <td class="text-center">?message=%22%3E%3Cscript%3Ealert(%27Naughty!%27);</td>
+
+                    <td class="text-center">201.159.99.58</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">xss</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548896</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/Account</td>
+                    <td class="text-center">/Account</td>
+
+                    <td class="text-center">147.56.55.69</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">None</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548897</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/Changename</td>
+                    <td class="text-center">name=%22%3E%3Cscript%3Ealert(%27Naughty!%27);</td>
+
+                    <td class="text-center">139.58.46.85</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">xss</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548898</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">login</td>
+                    <td class="text-center">/username=' or 1=1--&password=' or 1=1--</td>
+
+                    <td class="text-center">246.54.78.98</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">SQL Injection</td>
+                    <td class="text-center">2</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548899</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/</td>
+                    <td class="text-center">?rest_route=/wp/v2/users</td>
+
+                    <td class="text-center">145.54.78.98</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">unknown</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+
+
+
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="" class="font-medium whitespace-nowrap">548895</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/matrics</td>
+                    <td class="text-center">url=/etc/passwd</td>
+
+                    <td class="text-center">201.159.99.58</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">lfi</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548896</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/Account</td>
+                    <td class="text-center">/Account</td>
+
+                    <td class="text-center">147.56.55.69</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">None</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548897</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/Changename</td>
+                    <td class="text-center">name=script>alert(1)</td>
+
+                    <td class="text-center">139.58.46.85</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">xss</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548898</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">login</td>
+                    <td class="text-center">/username=' or 1=1--</td>
+
+                    <td class="text-center">246.54.78.98</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">SQL Injection</td>
+                    <td class="text-center">2</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548899</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/</td>
+                    <td class="text-center">/wp-comments-post.php</td>
+
+                    <td class="text-center">145.54.78.98</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">Open Redirect</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+
+
+
+
+                                        <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="" class="font-medium whitespace-nowrap">548895</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/index.php</td>
+                    <td class="text-center">?message=%22%3E%3Cscript%3Ealert(%27Naughty!%27);</td>
+
+                    <td class="text-center">201.159.99.58</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">xss</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548896</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/Account</td>
+                    <td class="text-center">/Account</td>
+
+                    <td class="text-center">147.56.55.69</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">None</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548897</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/Changename</td>
+                    <td class="text-center">name=%22%3E%3Cscript%3Ealert(%27Naughty!%27);</td>
+
+                    <td class="text-center">139.58.46.85</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">xss</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548898</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">login</td>
+                    <td class="text-center">/username=' or 1=1--&password=' or 1=1--</td>
+
+                    <td class="text-center">246.54.78.98</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">SQL Injection</td>
+                    <td class="text-center">2</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548899</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/</td>
+                    <td class="text-center">?rest_route=/wp/v2/users</td>
+
+                    <td class="text-center">145.54.78.98</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">unknown</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+
+
+
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="" class="font-medium whitespace-nowrap">548895</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/matrics</td>
+                    <td class="text-center">url=/etc/passwd</td>
+
+                    <td class="text-center">201.159.99.58</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">lfi</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548896</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/Account</td>
+                    <td class="text-center">/Account</td>
+
+                    <td class="text-center">147.56.55.69</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">None</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548897</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/Changename</td>
+                    <td class="text-center">name=script>alert(1)</td>
+
+                    <td class="text-center">139.58.46.85</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">xss</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548898</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">login</td>
+                    <td class="text-center">/username=' or 1=1--</td>
+
+                    <td class="text-center">246.54.78.98</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">SQL Injection</td>
+                    <td class="text-center">2</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548899</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/</td>
+                    <td class="text-center">/wp-comments-post.php</td>
+
+                    <td class="text-center">145.54.78.98</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">Open Redirect</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+
+                                        <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="" class="font-medium whitespace-nowrap">548895</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/index.php</td>
+                    <td class="text-center">?message=%22%3E%3Cscript%3Ealert(%27Naughty!%27);</td>
+
+                    <td class="text-center">201.159.99.58</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">xss</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548896</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/Account</td>
+                    <td class="text-center">/Account</td>
+
+                    <td class="text-center">147.56.55.69</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">None</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548897</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/Changename</td>
+                    <td class="text-center">name=%22%3E%3Cscript%3Ealert(%27Naughty!%27);</td>
+
+                    <td class="text-center">139.58.46.85</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">xss</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548898</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">login</td>
+                    <td class="text-center">/username=' or 1=1--&password=' or 1=1--</td>
+
+                    <td class="text-center">246.54.78.98</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">SQL Injection</td>
+                    <td class="text-center">2</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548899</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/</td>
+                    <td class="text-center">?rest_route=/wp/v2/users</td>
+
+                    <td class="text-center">145.54.78.98</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">unknown</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+
+
+
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="" class="font-medium whitespace-nowrap">548895</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/matrics</td>
+                    <td class="text-center">url=/etc/passwd</td>
+
+                    <td class="text-center">201.159.99.58</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">lfi</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548896</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/Account</td>
+                    <td class="text-center">/Account</td>
+
+                    <td class="text-center">147.56.55.69</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">None</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548897</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/Changename</td>
+                    <td class="text-center">name=script>alert(1)</td>
+
+                    <td class="text-center">139.58.46.85</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">xss</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548898</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">login</td>
+                    <td class="text-center">/username=' or 1=1--</td>
+
+                    <td class="text-center">246.54.78.98</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">SQL Injection</td>
+                    <td class="text-center">2</td>
+
+                    </td>
+                </tr>
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <a href="/Specefic log.html" class="font-medium whitespace-nowrap">548899</a>
+                        </div>
+                    </td>
+                    <td>
+                        2023/01/25
+                    </td>
+                    <td class="text-center">/</td>
+                    <td class="text-center">/wp-comments-post.php</td>
+
+                    <td class="text-center">145.54.78.98</td>
+
+                    <!--
+                        <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
+                    </td>
+                    <td class="text-center">Open Redirect</td>
+                    <td class="text-center">1</td>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
+        <nav class="w-full sm:w-auto sm:mr-auto">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevrons-left"></i> </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevron-left"></i> </a>
+                </li>
+                <li class="page-item"> <a class="page-link" href="#">...</a> </li>
+                <li class="page-item"> <a class="page-link" href="#">1</a> </li>
+                <li class="page-item active"> <a class="page-link" href="#">2</a> </li>
+                <li class="page-item"> <a class="page-link" href="#">3</a> </li>
+                <li class="page-item"> <a class="page-link" href="#">...</a> </li>
+                <li class="page-item">
+                    <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevron-right"></i> </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#"> <i class="w-4 h-4" data-lucide="chevrons-right"></i> </a>
+                </li>
+            </ul>
+        </nav>
+        <select class="w-20 form-select box mt-3 sm:mt-0">
+            <option>10</option>
+            <option>25</option>
+            <option>35</option>
+            <option>50</option>
+        </select>
+    </div>
+
+</div>
+
+
+
+{% endblock content %}
+
