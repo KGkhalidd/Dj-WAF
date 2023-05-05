@@ -61,7 +61,7 @@ def Login(request):
             return redirect('main:dashboard')
 
         else:
-            return HttpResponse("Username or passward isnot correct ")
+            return HttpResponse("Username or passward is not correct ")
     return render(request, 'main/login-light.html')
 
 
