@@ -162,50 +162,80 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse('main:login-light'))
 
+import json
+
 def extract_requests(file_path):
     with open(file_path, "r") as file:
         requests_data = file.readlines()
 
     ids = []
-    paths = []
-    endpoints = []
+    dates = []
+    client_ips = []
     methods = []
-    body_data = []
+    paths = []
+    bodies = []
+    endpoints = []
+    vulnerabilities = []
 
     for i, request_str in enumerate(requests_data, start=1):
-        request = json.loads(request_str)
+        try:
+            request = json.loads(request_str)
 
-        path = request.get("path")
-        method = request.get("method")
-        body_params = request.get("body_params")
+            # Check if the line contains the string "An error occurred"
+            if "An error occurred" in request_str:
+                continue  # Skip the line if it contains the error message
 
-        endpoint = f"{method} {path}"
+            date = request.get("Date")
+            client_ip = request.get("client_ip")
+            method = request.get("method")
+            path = request.get("path")
+            body = request.get("body")
+            endpoint = request.get("endpoint")
+            vulnerable = request.get("vulnerable")
 
-        # Store the extracted data
-        ids.append(i)
-        paths.append(path)
-        endpoints.append(endpoint)
-        methods.append(method)
-        body_data.append(body_params)
+            # Store the extracted data
+            ids.append(i)
+            dates.append(date)
+            client_ips.append(client_ip)
+            methods.append(method)
+            paths.append(path)
+            bodies.append(body)
+            endpoints.append(endpoint)
+            vulnerabilities.append(vulnerable)
+        except json.JSONDecodeError:
+            # Handle JSON decoding errors
+            continue  # Skip the line if it's not valid JSON
+
+    # Reverse the order of the extracted data
+    ids.reverse()
+    dates.reverse()
+    client_ips.reverse()
+    methods.reverse()
+    paths.reverse()
+    bodies.reverse()
+    endpoints.reverse()
+    vulnerabilities.reverse()
 
     # Return the extracted data
-    return ids, paths, endpoints, methods, body_data
-
+    return ids, dates, client_ips, methods, paths, bodies, endpoints, vulnerabilities
 
 
 @login_required(login_url='main:login-light')
 def log_analysis_light(request):
-    file_path = "F:\projects\djWAF\src\waf.txt"  # Replace with the actual file path
-    ids, paths, endpoints, methods, body_data = extract_requests(file_path)
+    file_path = "F:\projects\djWAF\src\mywaf.txt"  # Replace with the actual file path
+    ids, dates, client_ips, methods, paths, bodies, endpoints, vulnerabilities = extract_requests(file_path)
 
     data = []
-    for i in range(len(ids)):
+    for i, _ in enumerate(ids, start=1):
         item = {
-            'id': ids[i],
-            'path': paths[i],
-            'endpoint': endpoints[i],
-            'method': methods[i],
-            'body_data': body_data[i]
+            'id': i,
+            'date': dates[i-1],
+            'client_ip': client_ips[i-1],
+            'method': methods[i-1],
+            'path': paths[i-1],
+            'body': bodies[i-1],
+            'endpoint': endpoints[i-1],
+            'vulnerable': vulnerabilities[i-1]
         }
         data.append(item)
 

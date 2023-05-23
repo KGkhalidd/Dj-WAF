@@ -12,13 +12,12 @@ Log Analysis
                 <tr>
                     <th class="whitespace-nowrap">Request id</th>
                     <th class="whitespace-nowrap">Date</th>
+                    <th class="text-center whitespace-nowrap">Client IP</th>
+                    <th class="text-center whitespace-nowrap">Method</th>
                     <th class="text-center whitespace-nowrap">Path</th>
                     <th class="text-center whitespace-nowrap">Endpoint</th>
-                    <th class="text-center whitespace-nowrap">Client IP</th>
                     <th class="text-center whitespace-nowrap">body</th>
-                    <th class="text-center whitespace-nowrap">#Parameters</th>
-                    <th class="text-center whitespace-nowrap">Overview</th>
-                    <th class="text-center whitespace-nowrap">Method</th>
+                    <th class="text-center whitespace-nowrap">vulnerable</th>
                 </tr>
             </thead>
 
@@ -32,21 +31,20 @@ Log Analysis
                             <a href="" class="font-medium whitespace-nowrap">{{item.id}}</a>
                         </div>
                     </td>
-                    <td>
-                       date
-                    </td>
+                    <td class="text-center">{{item.date}}</td>
+                    <td class="text-center">{{item.client_ip}}</td>
+                    <td class="text-center">{{item.method}}</td>
                     <td class="text-center">{{item.path}}</td>
                     <td class="text-center">{{item.endpoint}}</td>
 
-                    <td class="text-center">555.55.55.55</td>
+
 
                     <!--
                         <div class="flex items-center justify-center text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Active </div>-->
                     </td>
-                    <td class="text-center">{{item.body_data}}</td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
-                    <td class="text-center">{{item.method}}</td>
+                    <td class="text-center">{{item.body}}</td>
+                    <td class="text-center">{{item.vulnerable}}</td>
+
 
                     </td>
                 </tr>
