@@ -10,6 +10,53 @@ from django.core.cache import cache
 import re
 from .models import Pattern, Blockedclient
 from .forms import Patternform, Blockedclientform
+from django.http import HttpRequest
+import json
+
+# def extract_requests(request):
+#     file_path = "waf.txt"  # Replace with the actual file path
+
+#     # Initialize variables to store extracted data
+#     ids = []
+#     paths = []
+#     endpoints = []
+#     methods = []
+#     body_data = []
+
+#     # Read the file containing the requests
+#     with open(file_path, "r") as file:
+#         requests_data = file.readlines()
+
+#     # Process each request
+#     for i, request_str in enumerate(requests_data, start=1):
+#         # Parse the request string as JSON
+#         request = json.loads(request_str)
+
+#         # Extract the desired information
+#         method = request.get("method")
+#         path = request.get("path")
+#         body_params = request.get("body_params")
+
+#         # Generate the endpoint by combining method and path
+#         endpoint = f"{method} {path}"
+
+#         # Store the extracted data
+#         ids.append(i)
+#         methods.append(method)
+#         paths.append(path)
+#         endpoints.append(endpoint)
+#         body_data.append(body_params)
+
+#     context = {
+#         'ids': ids,
+#         'methods': methods,
+#         'paths': paths,
+#         'endpoints': endpoints,
+#         'body_data': body_data,
+#     }
+
+#     return render(request, 'Log-analysis-light.html', context)
+
 
 
 def get_client_ip(request):
@@ -115,10 +162,63 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse('main:login-light'))
 
+def extract_requests(file_path):
+    with open(file_path, "r") as file:
+        requests_data = file.readlines()
+
+    ids = []
+    paths = []
+    endpoints = []
+    methods = []
+    body_data = []
+
+    for i, request_str in enumerate(requests_data, start=1):
+        request = json.loads(request_str)
+
+        path = request.get("path")
+        method = request.get("method")
+        body_params = request.get("body_params")
+
+        endpoint = f"{method} {path}"
+
+        # Store the extracted data
+        ids.append(i)
+        paths.append(path)
+        endpoints.append(endpoint)
+        methods.append(method)
+        body_data.append(body_params)
+
+    # Return the extracted data
+    return ids, paths, endpoints, methods, body_data
+
+
 
 @login_required(login_url='main:login-light')
 def log_analysis_light(request):
-    return render(request, 'main/log-analysis-light.html', {'title': "log-analysis-light", "blockedclients": Blockedclient.objects.all()})
+    file_path = "F:\projects\djWAF\src\waf.txt"  # Replace with the actual file path
+    ids, paths, endpoints, methods, body_data = extract_requests(file_path)
+
+    data = []
+    for i in range(len(ids)):
+        item = {
+            'id': ids[i],
+            'path': paths[i],
+            'endpoint': endpoints[i],
+            'method': methods[i],
+            'body_data': body_data[i]
+        }
+        data.append(item)
+
+    context = {
+        'title': "log-analysis-light",
+        'blockedclients': Blockedclient.objects.all(),
+        'data': data,
+    }
+
+    return render(request, 'main/log-analysis-light.html', context)
+
+
+    
 
 
 @login_required(login_url='main:login-light')
