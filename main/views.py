@@ -12,51 +12,7 @@ from .models import Pattern, Blockedclient
 from .forms import Patternform, Blockedclientform
 from django.http import HttpRequest
 import json
-
-# def extract_requests(request):
-#     file_path = "waf.txt"  # Replace with the actual file path
-
-#     # Initialize variables to store extracted data
-#     ids = []
-#     paths = []
-#     endpoints = []
-#     methods = []
-#     body_data = []
-
-#     # Read the file containing the requests
-#     with open(file_path, "r") as file:
-#         requests_data = file.readlines()
-
-#     # Process each request
-#     for i, request_str in enumerate(requests_data, start=1):
-#         # Parse the request string as JSON
-#         request = json.loads(request_str)
-
-#         # Extract the desired information
-#         method = request.get("method")
-#         path = request.get("path")
-#         body_params = request.get("body_params")
-
-#         # Generate the endpoint by combining method and path
-#         endpoint = f"{method} {path}"
-
-#         # Store the extracted data
-#         ids.append(i)
-#         methods.append(method)
-#         paths.append(path)
-#         endpoints.append(endpoint)
-#         body_data.append(body_params)
-
-#     context = {
-#         'ids': ids,
-#         'methods': methods,
-#         'paths': paths,
-#         'endpoints': endpoints,
-#         'body_data': body_data,
-#     }
-
-#     return render(request, 'Log-analysis-light.html', context)
-
+from django.core.paginator import Paginator, InvalidPage
 
 
 def get_client_ip(request):
@@ -162,7 +118,7 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse('main:login-light'))
 
-import json
+
 
 def extract_requests(file_path):
     with open(file_path, "r") as file:
@@ -220,22 +176,37 @@ def extract_requests(file_path):
     return ids, dates, client_ips, methods, paths, bodies, endpoints, vulnerabilities
 
 
+
+
 @login_required(login_url='main:login-light')
 def log_analysis_light(request):
     file_path = "F:\projects\djWAF\src\mywaf.txt"  # Replace with the actual file path
     ids, dates, client_ips, methods, paths, bodies, endpoints, vulnerabilities = extract_requests(file_path)
 
+    # Configure the number of requests per page
+    items_per_page = 20
+
+    # Create a Paginator object
+    paginator = Paginator(ids[::-1], items_per_page)  # Reverse the list of ids to display the latest requests first
+    page_number = request.GET.get('page')  # Get the current page number from the request's query parameters
+
+    try:
+        page = paginator.get_page(page_number)
+    except InvalidPage:
+        page = paginator.get_page(1)  # If the requested page is invalid, return the first page
+
     data = []
-    for i, _ in enumerate(ids, start=1):
+    for i in page:
+        reversed_index = len(ids) - i  # Calculate the index in the reversed list
         item = {
             'id': i,
-            'date': dates[i-1],
-            'client_ip': client_ips[i-1],
-            'method': methods[i-1],
-            'path': paths[i-1],
-            'body': bodies[i-1],
-            'endpoint': endpoints[i-1],
-            'vulnerable': vulnerabilities[i-1]
+            'date': dates[reversed_index],
+            'client_ip': client_ips[reversed_index],
+            'method': methods[reversed_index],
+            'path': paths[reversed_index],
+            'body': bodies[reversed_index],
+            'endpoint': endpoints[reversed_index],
+            'vulnerable': vulnerabilities[reversed_index]
         }
         data.append(item)
 
@@ -243,6 +214,8 @@ def log_analysis_light(request):
         'title': "log-analysis-light",
         'blockedclients': Blockedclient.objects.all(),
         'data': data,
+        'paginator': paginator,
+        'page': page
     }
 
     return render(request, 'main/log-analysis-light.html', context)
